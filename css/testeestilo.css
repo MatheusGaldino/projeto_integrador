@@ -1,0 +1,405 @@
+@font-face {
+      font-family: "asasa";
+      src: url("../fonts/asasa.ttf") format("truetype");
+}
+@font-face {
+      font-family: "HunDIN1451";
+      src: url("../fonts/HunDIN1451.ttf") format("truetype");
+}
+@font-face {
+      font-family: "lottepaperfang";
+      src: url("../fonts/lottepaperfang.ttf") format("truetype");
+}
+@font-face {
+      font-family: "onuava__";
+      src: url("../fonts/onuava__.ttf") format("truetype");
+}
+@font-face {
+      font-family: "The Outbox St";
+      src: url("../fonts/The Outbox St.ttf") format("truetype");
+}
+@font-face {
+      font-family: "Zoon Hoot";
+      src: url("../fonts/Zoon Hoot.otf") format("truetype");
+}
+
+
+
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Roboto;
+}
+
+/*CABEÇHALHO E NAVEGAÇÃO*/
+#wrapper {
+	width: 100%;
+}
+#wrapper:before, #wrapper:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+#pageHeader, #productsControlNavigation {
+	box-sizing: border-box;
+	width: 100%;
+}
+#pageHeader {
+	background-color: #002244;
+	padding: 10px 45px;
+	width: 100%;
+}
+#pageHeader #logo {	
+	width: 100px;
+}
+#pageHeader h2 {
+	background: url(../imagems/avatar.jpg) left no-repeat;
+	color: #69be28;
+	float: right;
+	font-size: 17px;
+	height: 17px;
+	margin-top: 10px;
+	padding-left: 25px;
+}
+#pageHeader:before, #pageHeader:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+#productsControlNavigation {
+	background-color: #69be28;
+}
+#productsControlNavigation ul {
+	list-style: none;
+	margin-bottom:20px;
+}
+#productsControlNavigation ul li {
+	display: inline-block;
+}
+#productsControlNavigation ul li a {	
+	color:  #002244;
+	display: inline-block;
+	text-decoration: none;
+	padding: 20px 0;
+	font-weight: bold;
+	text-align: center;
+	width: 200px;	
+}
+#productsControlNavigation ul li a:hover {
+	background-color: #002244;
+	color: #69be28;
+}
+#productsControlNavigation ul li:last-child {
+	float: right;
+}
+#productsControlNavigation ul li:last-child a {
+	width: 100px;
+}
+/*FIM CABEÇHALHO E NAVEGAÇÃO*/
+
+/*FORMULARIO DE PESQUISA DE PRODUTOS*/
+#prodNavigation {
+	background-color: #002244;
+	box-sizing: border-box;
+	height: 60px;
+	margin-top: -20px;
+	padding: 10px 20px;
+	position: relative;
+	text-align: center;
+	width: 100%;
+}
+.searchForme form input[type=text]:focus, .subSearch select:focus{
+	border-bottom: solid 1px #69be28;
+}
+.searchForm1 {
+	background-color:#002244;
+	color:#69be28;
+	border-radius: 4px;
+	border:1px solid #69be28;
+	font-size:110%;
+	height: 35px;
+	width:94px;
+}
+.searchForm1:hover {
+	background-color:#69be28;
+	color:#002244;
+}
+
+.subSearch {
+	position:absolute;
+	right: 80px;
+	top: 10px;
+}
+.subSearch div{
+	border: 6px solid #002244;
+	background-color:#002244;
+	border-radius: 6px;
+	color:#fff;
+	display: inline-block;
+}
+.subSearch input, .subSearch select {
+	border:none;
+	background-color:#002244;
+	border-bottom: solid 1px #fff;
+	color: #fff;
+	outline: none;
+	font-size:105%;
+}
+.searchByNameContainer {
+	position: absolute;
+	left: 80px;
+	top: 10px;
+	width: 35%;
+}
+.borderSearch {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+}
+.borderSearch input[type=text] {
+	background: none;
+	border: none;
+	border-bottom: solid 1px #fff;
+	color: #fff;
+	font-size: 20px;
+	height: 32px;
+	width: 70%;
+}
+.borderSearch input[type=text]:focus {
+	outline: none;
+	border-bottom: solid 1px #69be28;
+}
+
+/*FIM FORMULARIO DE PESQUISA DE PRODUTOS*/
+
+/* BARRA LATERAL*/
+aside {
+	width:15%;
+	height:300px;
+	background-color:green;
+	float:left;
+	margin-top:40px;}
+/*FIM BARRA LATERAL*/
+
+
+/*TABLE FOR SEARCH TEST*/
+table {
+	width: 100%;
+    margin: 100px auto;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6); 
+}
+#produto{
+	width: 70%;
+	float:left;
+}
+tr:nth-child(even) {
+	background-color: #002244;
+	color: #69be28;
+}
+tr:nth-child(odd) {
+	background-color: #a5acaf;
+	color: #002244;  
+}
+#acoes{
+    width: 35%;
+}
+td, th {	
+	height: 85px;
+	padding: 0 10px;
+	text-align: left;
+	width: 30%;
+}
+td {
+	border: solid .5px #ddd;
+}
+table td + td,
+table th + th
+{
+    text-align: center;
+	width: 17.5%;
+}
+th {
+	background-color: #a5acaf;
+	border-bottom: solid 10px #69be28;
+	color: #002244;
+	font-size: 20px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+tr:hover {
+	border-bottom: solid 2px #a5acaf;
+}
+#categoryTable td, th {
+	width: 33.3%;
+}
+#categoryTable table td + td, #categoryTable table th + th {
+	width: 33.3%;
+}
+#userTable td, th {
+	width: 28%;
+}
+#userTable table td + td, #userTable table th + th {
+	width: 24%;
+}
+/*END TABLE FOR SEARCH TEST*/
+
+
+
+.bold{
+    font-weight: bold;
+    background-color: #f8f8f8;
+    width: 15%;
+}
+
+
+#actionMsg {
+	box-sizing: border-box;
+	color: #69be28;
+	font-weight: bold;
+	text-align: center;
+	font-size:140%;
+	background-color:#002244;
+	position: absolute;
+	margin-left:50%;
+	margin-top:4px;
+	left:-200px;
+	width:400px;
+	border-radius: 3px;
+}
+		
+/*BOTÃO ADICIONAR NOVO REGISTRO*/
+#btnContainer {
+	padding: 20px 80px 0 0;
+	text-align: right;
+}
+#addNew {
+	background-color: #002244;
+	border-radius: 2px;
+	color: #69be28;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+#addNew:hover {
+	background-color: #69be28;
+	color: #002244;
+	font-weight: bold;
+}
+/*FIM BOTÃO ADICIONAR NOVO REGISTRO*/
+
+
+/*botões das tabelas*/
+.edita, .deleta {
+	padding: 10px 10px;
+	text-align: center;
+	text-decoration: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    float: left;
+    font-weight: bold;
+}
+.edita {
+	background-color: #69be28;
+	color: #002244;
+}
+.edita:hover {
+	background-color: #4d8d1c;
+}
+
+.deleta {
+	background-color: #cc0000;
+	color: #69be28;
+}
+.deleta:hover {
+    background-color: #cc0033;
+}
+/*fim botões das tabelas*/
+
+
+
+
+
+/*estilo do bannher Homepage*/
+article {
+    width: 80%;
+    margin: 3% auto auto 10%;
+    
+}
+.bannerdash {
+    width: 29%;
+    margin: auto 2% auto 2%;
+    height: 500px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.3);
+    float: left;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.bannerdash:hover {
+    font-size: 130%;   
+}
+
+.fundo p {
+    text-align: center;
+    font-family: Roboto;
+    font-size: 200%;
+    font-weight: bolder;
+    padding-top: 70%;
+}
+
+
+#esquerda {
+    background: url(../imagems/estoque.jpg) no-repeat;
+}
+
+#meio {
+    background: url(../imagems/categ.jpg) no-repeat;
+}
+
+#direita {
+    background: url(../imagems/user.jpg) no-repeat;
+}
+
+.fundo:hover{
+    transition: background-color 0.2s linear 0s; 
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+/*FOOTER*/
+footer {
+	background-color: #002244;
+	border-top: solid 4px #69be28;
+	margin-top: 350px;
+	padding: 20px 0;
+	width: 100%;
+}
+footer p {
+	color: #69be28;
+	margin-bottom: 10px;
+	text-align: center;
+}
+footer p:last-child {
+	margin-bottom: 0;
+}
+@media only screen and (max-width: 1150px) {
+	.searchByNameContainer {
+		display: block;
+		position: inherit;
+		width: 100%;
+	}
+	.subSearch {
+		display: block;
+		position:inherit;
+		margin-top: 20px;
+		width: 100%;
+	}
+	#prodNavigation {
+		background-color: #002244;
+		height: auto;
+	}
+}
