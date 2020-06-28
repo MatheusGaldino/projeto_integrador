@@ -40,15 +40,15 @@
 					break;				
 			}	
 		}
-		$query = odbc_exec($db, "SELECT idProduto, nomeProduto, precProduto, qtdMinEstoque, ativoProduto FROM Produto " . $searchByNameQuery . $searchByCategoryQuery . $sortQuery);
+		$query = $db->query("SELECT idProduto, nomeProduto, precProduto, qtdMinEstoque, ativoProduto FROM Produto " . $searchByNameQuery . $searchByCategoryQuery . $sortQuery);
 		
 		return $query;
 	}
 
 	function loadSearchCatedories($db) { 
-		$query = odbc_exec($db, "SELECT idCategoria, nomeCategoria FROM Categoria");
+		$query = $db->query("SELECT idCategoria, nomeCategoria FROM Categoria");
 	
-		while($result = odbc_fetch_array($query)) {
+		while($result = $query->fetch_assoc()) {
 			if($_GET['searchByCategory'] == $result['idCategoria'])
 				echo "<option selected value='" . $result['idCategoria'] . "'>" . utf8_encode($result['nomeCategoria']) . "</option>";
 			else
@@ -73,8 +73,8 @@
 		}
 	}
 	function deleteItem($db, $prodId) {
-		if($query = odbc_exec($db, "DELETE FROM Produto WHERE idProduto = '$prodId'")) {
-			if(odbc_num_rows($query) > 0)
+		if($query = $db->query("DELETE FROM Produto WHERE idProduto = '$prodId'")) {
+			if($query)
 				$GLOBALS['msg'] = "Produto deletado com sucesso!";
 			else
 				$GLOBALS['msg'] = "Produto não existe!";

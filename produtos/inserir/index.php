@@ -1,16 +1,19 @@
 <?php 
+date_default_timezone_set("America/Sao_Paulo");
+
+
 	include "../../functions.php"; 
 	if(!isset($_SESSION['user'])) header("Location: ../../login/");
 
 	function checkUserId($db, $userId) {
-		$query = odbc_exec($db, "SELECT nomeUsuario FROM Usuario WHERE idUsuario = '$userId'");
-		$result = odbc_fetch_array($query);
+		$query = $db->query("SELECT nomeUsuario FROM Usuario WHERE idUsuario = '$userId'");
+		$result = $query->fetch-assoc();
 		return $result['nomeUsuario'];
 	}
 	function loadCatedories($db) { 
-		$query = odbc_exec($db, "SELECT idCategoria, nomeCategoria FROM Categoria");
+		$query = $db->query("SELECT idCategoria, nomeCategoria FROM categoria");
 		
-		while($result = odbc_fetch_array($query)) {
+		while($result = $query->fetch_assoc()) {
 			echo "<option value='" . $result['idCategoria'] . "'>" . utf8_encode($result['nomeCategoria']) . "</option>";
 		}
 	}
@@ -31,15 +34,17 @@
 		$qtd = fieldValidation($_POST['prodQtd']);
 		$price = str_replace(",", ".", $price);
 		$discount = str_replace(",", ".", $discount);
-		$image = $_POST['prodImg'];
-		
-		if(isset($_FILES['prodImg']) && !empty($_FILES['prodImg']['name'])) {		
-			$file = fopen($_FILES['prodImg']['tmp_name'],'rb');
-			$image = fread($file, filesize($_FILES['prodImg']['tmp_name']));
-			fclose($file);
-		}
 
-		if($stmt = odbc_prepare($db, "INSERT INTO Produto
+		$uploadDir = "../../uploads/";
+		$_FILES['prodImg']['name'] = date("Y-m-d H-i-s") . $_FILES['prodImg']['name'];
+		$fileUpload = $uploadDir.basename($_FILES['prodImg']['name']);
+		$image = $_FILES['prodImg']['name'];
+
+
+		$res = move_uploaded_file($_FILES['prodImg']['tmp_name'], $fileUpload);
+		
+
+		if($stmt = $db->query("INSERT INTO Produto
 								(nomeProduto,
 								 descProduto,
 								 precProduto,
@@ -50,9 +55,9 @@
 								 qtdMinEstoque,
 								 imagem)
 								VALUES
-								(?,?,?,?,?,?,?,?,?)")) {
-			odbc_execute($stmt, array($name, $description, $price, $discount, $idCategory, $status, $userId, $qtd, $image));
-			odbc_close($db);
+								('$name', '$description', '$price', '$discount', '$idCategory', '$status', '$userId', '$qtd', '$image')")) {
+			
+			$db->close();
 			header("Location: ../index.php?add=success");
 		}
 		else $msg = "Erro ao inserir produto!";

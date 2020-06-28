@@ -18,22 +18,19 @@
 			$desc = str_replace("'",'',$desc);
 			$desc = str_replace(';','',$desc);
 			
-		$query = odbc_exec($db, "SELECT nomeCategoria FROM Categoria WHERE nomeCategoria = '$nome'");
-		$result = odbc_fetch_array($query);
+		$result = $db->query("SELECT nomeCategoria FROM Categoria WHERE nomeCategoria = '$nome'");
+		
+		if($values = $result->fetch_assoc()){
+			var_dump($values);
+		}
 
-		if(!empty($result['nomeCategoria'])) {
+		if(!empty($values['nomeCategoria'])) {
 			header("Location: ?error=true");	
 		}
 		else {			
-			if(odbc_exec($db, "	INSERT INTO
-									Categoria
-									(nomeCategoria,
-									descCategoria)
-								VALUES
-									('$nome',
-									'$desc'
-									)")){
-				odbc_close($db);
+			if($db->query("INSERT INTO categoria (nomeCategoria, descCategoria) VALUES ('$nome','$desc')")){
+				
+				$db->close();
 				header("Location: ../../categorias/?add=success");				
 			}else{
 				$msg = "Erro ao cadastrar categoria";

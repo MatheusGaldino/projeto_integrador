@@ -56,7 +56,7 @@
 		<?php 
 			$query = listProducts($db);
 			
-			while($result = odbc_fetch_array($query)):
+			while($result = $query->fetch_assoc()):
 		?>
 				<tr>
 					<td class='textocell'><?php echo utf8_encode($result['nomeProduto']); ?></td>
@@ -64,13 +64,13 @@
 					<td class='textocell'><?php echo $result['qtdMinEstoque']; ?></td>
 					<td class="textocell"><?php echo checkStatus($result['ativoProduto']); ?></td>
 					<td id='acoes'>
-						<?php if($result['idProduto'] > 10): ?>
+						<?php  ?>
 							<a class='edita' href="editar/?id=<?php echo $result['idProduto']; ?>" title="Editar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 							<a class='deleta' href="?action=delete&id=<?php echo $result['idProduto']; ?>" title="Deletar"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-						<?php endif; ?>
+						<??>
 					</td>
 				</tr>
-			<?php endwhile; odbc_close($db);?>
+			<?php endwhile; $db->close();?>
 	</table>
 	<?php include("../layout/footer.tpl.php") ?>
 

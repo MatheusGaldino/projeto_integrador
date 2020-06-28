@@ -2,18 +2,18 @@
 	include "../../functions.php"; 
 	if(!isset($_SESSION['user'])) header("Location: ../../login/");
 
-	ini_set ('odbc.defaultlrl', 9000000);//muda configuração do PHP para trabalhar com imagens no DB
+	//ini_set ('odbc.defaultlrl', 9000000);//muda configuração do PHP para trabalhar com imagens no DB
 
 	if(isset($_GET['id'])) {
 		if(is_numeric($_GET['id'])) $id = $_GET['id'];
-		$query = odbc_exec($db, "SELECT nomeProduto, descProduto, precProduto, descontoPromocao, idCategoria, ativoProduto, idUsuario, qtdMinEstoque, imagem FROM Produto WHERE idProduto = '$id'");
-		$result = odbc_fetch_array($query);
-		odbc_longreadlen($query, 2000000);
+		$query = $db->query("SELECT * FROM Produto WHERE idProduto = '$id'");
+		$result = $query->fetch_assoc();
+		//odbc_longreadlen($query, 2000000);
 	}
 	function loadFormCategories($db, $id) { 
-		$query = odbc_exec($db, "SELECT idCategoria, nomeCategoria FROM Categoria");
+		$query = $db->query("SELECT idCategoria, nomeCategoria FROM Categoria");
 		
-		while($result = odbc_fetch_array($query)) {
+		while($result = $query->fetch_assoc()) {
 			if($id == $result['idCategoria'])
 				echo "<option value='" . $result['idCategoria'] . "' selected>" . utf8_encode($result['nomeCategoria']) . "</option>";
 			else
@@ -21,8 +21,8 @@
 		}
 	}
 	function checkUserId($db, $userId) {
-		$query = odbc_exec($db, "SELECT nomeUsuario FROM Usuario WHERE idUsuario = '$userId'");
-		$result = odbc_fetch_array($query);
+		$query = $db->query("SELECT nomeUsuario FROM Usuario WHERE idUsuario = '$userId'");
+		$result = $query->fetch_assoc();
 		return $result['nomeUsuario'];
 	}
 
@@ -45,37 +45,36 @@
 		$price = str_replace(",", ".", $price);
 		$discount = str_replace(",", ".", $discount);
 
-		if($stmt = odbc_prepare($db, "UPDATE Produto SET
-									 nomeProduto=?,
-									 descProduto=?,
-									 precProduto=?,
-									 descontoPromocao=?,
-									 idCategoria=?,
-									 ativoProduto=?,
-									 idUsuario=?,
-									 qtdMinEstoque=?
+		$uploadDir = "../../uploads/";
+		$_FILES['prodImg']['name'] = date("Y-m-d H-i-s") . $_FILES['prodImg']['name'];
+		$fileUpload = $uploadDir.basename($_FILES['prodImg']['name']);
+		$image = $_FILES['prodImg']['name'];
+
+
+		$res = move_uploaded_file($_FILES['prodImg']['tmp_name'], $fileUpload);
+
+		if($stmt = $db->query("UPDATE Produto SET
+									 nomeProduto='$name',
+									 descProduto='$description',
+									 precProduto='$price',
+									 descontoPromocao='$discount',
+									 idCategoria='$idCategory',
+									 ativoProduto='$status',
+									 idUsuario='$userId',
+									 qtdMinEstoque='$qtd',
+									 imagem='$image'
 									 WHERE
 									 idProduto = '$id'")) {
-			odbc_execute($stmt, array($name, $description, $price, $discount, $idCategory, $status, $userId, $qtd));
-
-			if(isset($_FILES['prodImg']) && !empty($_FILES['prodImg']['name'])) {		
-				$file = fopen($_FILES['prodImg']['tmp_name'],'rb');
-				$fileParaDB = fread($file, filesize($_FILES['prodImg']['tmp_name']));
-				fclose($file);
-				
-				$stmt = odbc_prepare($db,"UPDATE Produto SET
-												imagem=?
-												WHERE
-												idProduto = '$id'");	
-				odbc_execute($stmt, array($fileParaDB));
-			}
-			odbc_close($db);
+			
+			
+			
+			$db->close();
 
 			header("Location: ../../produtos/?update=success");
 		}
 		else {
 			$msg = "Erro ao alterar produto!";
-			odbc_close($db);
+			$db->close();
 		}
 	}
 

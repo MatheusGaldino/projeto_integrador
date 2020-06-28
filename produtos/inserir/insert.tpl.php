@@ -72,8 +72,9 @@
 				<label for="prodImg">Imagem</label><br>
 				<div id="imgContainer"></div>
 			
-			<p>				
-				<input type="file" id="prodImg" name="prodImg" accept="image/*" onchange="readImagesAndSetAsBackground(this.files)">
+			<p>	
+						
+				<input type="file" id="image" name="prodImg" accept="image/*" onchange="readImagesAndSetAsBackground(this.files)">
 				<input type="button" id="clearFile" value=" X " title="Excluir imagem selecionada">
 			</p>		
 		</div>

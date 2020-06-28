@@ -38,7 +38,7 @@
 		<?php 
 			$query = listCategories($db);
 			
-			while($result = odbc_fetch_array($query)):
+			while($result = $query->fetch_assoc()):
 		?>
 				<tr>
 					<td class='textocell'><?php echo utf8_encode($result['nomeCategoria']); ?></td>
@@ -50,7 +50,7 @@
 						<?php ?>
 					</td>
 				</tr>
-			<?php endwhile; odbc_close($db);?>
+			<?php endwhile; $db->close();?>
 	</table>
 	<?php include("../layout/footer.tpl.php") ?>
 </body>

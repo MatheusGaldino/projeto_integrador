@@ -66,7 +66,7 @@
 				<label for="prodImg">Imagem</label>
 				<div id="imgContainer">
 					<?php if(!empty($result['imagem'])): ?>
-						<img id="currentImage" src="data:image/jpeg;base64,<?php $conteudo_base64 = base64_encode($result['imagem']); echo $conteudo_base64 ?>">
+						<img id="currentImage" src="/projeto_integrador/uploads/<?php echo $result['imagem'] ?>">
 					<?php endif; ?>
 				</div>
 			</p>

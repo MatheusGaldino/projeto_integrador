@@ -4,11 +4,11 @@
 	
 	if(isset($_GET['id'])) {
 		if(is_numeric($_GET['id'])) $id = $_GET['id'];
-		$query = odbc_exec($db, "SELECT * FROM Categoria WHERE idCategoria = '$id'");
-		$result = odbc_fetch_array($query);
+		$query = $db->query("SELECT * FROM Categoria WHERE idCategoria = '$id'");
+		$result = $query->fetch_assoc();
 	}
 	
-		odbc_close($db);
+		
 	
 	
 	$msg = "";
@@ -27,15 +27,15 @@
 			$desc = str_replace(';','',$desc);
 				
 
-		if(odbc_exec($db, "UPDATE Categoria SET
+		if($db->query("UPDATE Categoria SET
 					   nomeCategoria =  '$nome',
 					   descCategoria = '$desc'
 					   WHERE 
-					   idCategoria = $id")) 
+					   idCategoria = $id")){ 
 			header("Location: ../../categorias/?update=success");
-		else {
+		}else {
 			$msg = "Erro ao alterar produto!";
-			odbc_close($db);
+			$db->close();
 		}
 	}
 

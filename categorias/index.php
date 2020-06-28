@@ -13,10 +13,10 @@
 		}
 	}
 	function deleteItem($db, $catId) {
-		$query = odbc_exec($db, " SELECT idCategoria FROM Produto WHERE idCategoria = '$catId'");
-		if(empty($result = odbc_fetch_array($query))){
-			if($query = odbc_exec($db, "DELETE FROM Categoria WHERE idCategoria = '$catId'")) {
-				if(odbc_num_rows($query) > 0)
+		$query = $db->query(" SELECT idCategoria FROM Produto WHERE idCategoria = '$catId'");
+		if(empty($result = $query->fetch_assoc())){
+			if($query = $db->query("DELETE FROM Categoria WHERE idCategoria = '$catId'")) {
+				if($query->num_rows > 0)
 					$GLOBALS['msg'] = "Categoria deletado com sucesso!";
 				else
 					$GLOBALS['msg'] = "Categoria não existe!";
@@ -28,11 +28,11 @@
 	function listCategories($db) {
 		if(isset($_GET['searchByName'])) {
 			$name = $_GET['searchByName'];
-			$query = odbc_exec($db, "SELECT idCategoria, nomeCategoria, descCategoria FROM 
+			$query = $db->query("SELECT idCategoria, nomeCategoria, descCategoria FROM 
 				Categoria WHERE nomeCategoria LIKE '%$name%'");
 		}
 		else 
-			$query = odbc_exec($db, "SELECT idCategoria, nomeCategoria, descCategoria FROM Categoria");
+			$query = $db->query("SELECT idCategoria, nomeCategoria, descCategoria FROM Categoria");
 		return $query;
 	} 
 	include "index.tpl.php";
